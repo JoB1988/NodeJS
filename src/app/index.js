@@ -14,6 +14,7 @@ class Application {
 
   routes() {
       this.app.use(require('./routes/user.routes'))
+      this.app.use(require('./routes/session.routes'))
   }
 }
 

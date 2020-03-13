@@ -10,7 +10,24 @@ class SessionServices {
       if (!user) {
         return { message: "Usuário não encontrado" };
       }
-      
+      const jsonTokenObject = JSON.stringify({
+        id: user._id,
+        nome: user.nome,
+        email: user.email
+      });
+      return (await repo.comparePassword(user.password, password))
+        ? { user, token: jwt.sign(jsonTokenObject, process.env.JWT_KEY) }
+        : { mesage: "" };
+    } catch (error) {
+      throw error;
+    }
+  }
+  async auth(req, authHeader) {
+    try {
+      const [, token] = authHeader.split(" ");
+      const decoded = await promisify(jwt.verify)(token, process.env.JWT_KEY);
+      req._id = decoded._id;
+      return req;
     } catch (error) {
       throw error;
     }

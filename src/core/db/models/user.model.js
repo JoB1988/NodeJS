@@ -10,6 +10,7 @@ const USERSCHEMA = new Schema({
 });
 
 USERSCHEMA.pre("save", function(next) {
+
   if (!this.isModified("password")) {
     return next();
   }
