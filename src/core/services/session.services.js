@@ -15,15 +15,16 @@ class SessionServices {
         nome: user.nome,
         email: user.email
       });
-      return await repo.comparePassword(user.password, password)
+      return (await repo.comparePassword(user.password, password))
         ? { user, token: jwt.sign(jsonTokenObject, process.env.JWT_KEY) }
         : { mesage: "" };
     } catch (error) {
       throw error;
     }
   }
-  async auth(req, authHeader) {
+  async auth(req) {
     try {
+      const authHeader = req.headers.authorization;
       const [, token] = authHeader.split(" ");
       const decoded = await promisify(jwt.verify)(token, process.env.JWT_KEY);
       req._id = decoded._id;
