@@ -15,7 +15,7 @@ class SessionServices {
         nome: user.nome,
         email: user.email
       });
-      return (await repo.comparePassword(user.password, password))
+      return await repo.comparePassword(user.password, password)
         ? { user, token: jwt.sign(jsonTokenObject, process.env.JWT_KEY) }
         : { mesage: "" };
     } catch (error) {

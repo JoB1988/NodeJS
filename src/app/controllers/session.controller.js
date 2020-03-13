@@ -5,7 +5,7 @@ class sessionController {
     try {
       const { email, password } = req.body;
       const token = await sessionService.login(email, password);
-      res.status(token);
+      res.status(200).send(token);
     } catch (error) {
       throw error;
     }
