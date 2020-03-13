@@ -13,19 +13,22 @@ class Repository {
 
   async delete(_id) {
     try {
-      //   return new Promise((resolve, reject) => {
-      //     this.model.deleteOne({ _id }, err => {
-      //       if (err) {
-      //         throw reject(err);
-      //       } else return resolve({ _id });
-      //     });
-      //   });
       const result = await this.model.findOneAndDelete({ _id });
       return result;
     } catch (exception) {
       throw exception;
     }
   }
+
+  async findOne(args) {
+    try {
+      const result = await this.model.findOne(args);
+      return result;
+    } catch (exception) {
+      throw exception;
+    }
+  }
+
   async findById(_id) {
     try {
       const result = await this.model.findById(_id);

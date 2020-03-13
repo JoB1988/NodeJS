@@ -1,8 +1,9 @@
+const validators = require('../../core/utils/validator')
 class UserMiddleware {
     validateUser(req, res, next){
         try {
-            const user = req.body;
-            if(!user.nome || !user.password || !user.email){
+            const user = req.body;       
+            if(!validators.saveValidation(user)){
                 return res.status(401).send('Dados de usuário inválido')
             } else {
                 next();
